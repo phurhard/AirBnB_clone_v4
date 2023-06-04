@@ -1,6 +1,6 @@
 $(document).ready(function () {
   const amenities = {};
-
+	const amenityID = [];
   // AMENITIES LISTING
   $('input[data-id]').click(function () {
     const dataId = $(this).attr('data-id');
@@ -14,6 +14,7 @@ $(document).ready(function () {
     const amenityList = [];
     $.each(amenities, function (dataid, dataname) {
       amenityList.push(dataname);
+	amenityID.push(dataid);
     });
     $('div.amenities h4').text(amenityList.join(', '));
   });
@@ -60,5 +61,14 @@ $.ajax({
     console.log('Error:', error);
   });
 }
+// on button click
+$('button').click(function(){
+$.ajax({
+    url:  'http://0.0.0.0:5001/api/v1/places_search/,
+    method: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify({'Amenity':amenityID});
+  });
 
+});
 });
