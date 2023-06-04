@@ -28,46 +28,37 @@ $(document).ready(function () {
   });
 
 	//NEW ENDPOINT FOR PLACES
-  $.ajax({
-	  url: 'http://0.0.0.0:5001/api/v1/places_search',
-	  method: 'POST',
-	  headers: {
-		  'Content-Type': 'application/json'
-	  },
-	  data: JSON.stringify({}),
-	  success: function(res) {
-		  //Creates the places from here
-		  console.log(res);
-		  $.each(res, function(index, object){
-			  //start of dynamically created places
-			  
-			  let article = $('<article></article>');// creates an article element
-			  let title_box = $('<div></div>').addClass('title_box');
-			  let h2 = $('<h2></h2>');
-			  let priceByNight = $('<div></div>').addClass('price_by_night');
-			  let information = $('<div></div>').addClass('information');
-			  let maxGuest = $('<div></div>').addClass('max_guest');
-			  let numberRooms = $('<div></div>').addClass('number_rooms');
-			  let numberBathrooms = $('<div></div>').addClass('number_bathrooms');
-			  let Description = $('<div></div>').addClass('description');
-			  //ADDING THE CONTENTS
-			  Description.text(object.description);
-			  numberBathrooms.text(object.number_bathrooms);
-			  numberRooms.text(object.number_rooms);
-			  maxGuest.text(object.max_guest);
-			  priceByNight.text(object.price_by_night);
-			  h2.text(object.name);
-
-			  /* Adding them together*/
-			  information.append(maxGuest, numberRooms, numberBathrooms);
-			  title_box.append(h2, priceByNight)
-
-			  article.append(title_box, information, Description);
-			  $('section.places').append(article);
-		  });
-	  },
-	  error: function(xhr, textStatus, errorThrown) {
-		  console.log(xhr.status + ': ' + textStatus);
-	  }
+$.ajax({
+    url:  'http://0.0.0.0:5001/api/v1/places_search/,
+    method: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify({})
+  })
+  .done(function(data) {
+    const placesSection = $('section.places');
+    placesSection.empty(); // Clear existing places
+    
+    data.forEach(function(place) {
+      const article = $('<article></article>');
+	const title_box = $('<div></div>').addClass('title_box');
+      const title = $('<h2></h2>').text(place.name);
+      const price = $('<div class="price_by_night"></div>').text(`${place.price_by_night}`);
+      title_box.append(title, price);
+      const information = $('<div></div>').addClass('information');
+      const maxGuests = $('<div class="max_guest">').text(`${place.max_guest}`);
+      const numRooms = $('<div class="number_rooms">').text(`${place.number_rooms}`);
+      const numBathrooms = $('<div class="number_bathrooms">').text(`${place.number_bathrooms}`);
+      
+      information.append(maxGuests, numRooms, numBathrooms);
+      
+      article.append(title, price, information);
+      
+      placesSection.append(article);
+    });
+  })
+  .fail(function(error) {
+    console.log('Error:', error);
   });
+}
+
 });
