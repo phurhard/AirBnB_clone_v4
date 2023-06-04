@@ -62,7 +62,7 @@ $(document).ready(function () {
 			  information.append(maxGuest, numberRooms, numberBathrooms);
 			  title_box.append(h2, priceByNight)
 
-			  article.append(title_box, information, description);
+			  article.append(title_box, information, Description);
 			  $('section.places').append(article);
 		  });
 	  },
