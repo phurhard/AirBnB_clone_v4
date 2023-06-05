@@ -27,38 +27,40 @@ $(document).ready(function () {
     }
   });
 
-	//NEW ENDPOINT FOR PLACES
-$.ajax({
-    url:  'http://0.0.0.0:5001/api/v1/places_search/,
+  // NEW ENDPOINT FOR PLACES
+  $.ajax({
+    url: 'http://0.0.0.0:5001/api/v1/places_search/',
     method: 'POST',
     contentType: 'application/json',
     data: JSON.stringify({})
   })
-  .done(function(data) {
-    const placesSection = $('section.places');
-    placesSection.empty(); // Clear existing places
-    
-    data.forEach(function(place) {
-      const article = $('<article></article>');
-	const title_box = $('<div></div>').addClass('title_box');
-      const title = $('<h2></h2>').text(place.name);
-      const price = $('<div class="price_by_night"></div>').text(`${place.price_by_night}`);
-      title_box.append(title, price);
-      const information = $('<div></div>').addClass('information');
-      const maxGuests = $('<div class="max_guest">').text(`${place.max_guest}`);
-      const numRooms = $('<div class="number_rooms">').text(`${place.number_rooms}`);
-      const numBathrooms = $('<div class="number_bathrooms">').text(`${place.number_bathrooms}`);
-      
-      information.append(maxGuests, numRooms, numBathrooms);
-      
-      article.append(title, price, information);
-      
-      placesSection.append(article);
+    .done(function (data) {
+      const placesSection = $('section.places');
+      placesSection.empty(); // Clear existing places
+
+      data.forEach(function (place) {
+        const article = $('<article></article>');
+        const titleBox = $('<div></div>').addClass('title_box');
+        const title = $('<h2></h2>').text(place.name);
+        const price = $('<div class="price_by_night"></div>').text('$' +`${place.price_by_night}`);
+        const information = $('<div></div>').addClass('information');
+        const maxGuests = $('<div class="max_guest">').text(`${place.max_guest}` + ' Guests');
+        const numRooms = $('<div class="number_rooms">').text(`${place.number_rooms}` + ' Bedrooms');
+        const numBathrooms = $('<div class="number_bathrooms">').text(`${place.number_bathrooms}` + ' Bathrooms');
+
+	const Description = $('<div class="description"></div>').text(`${place.description}`);
+	titleBox.append(title, price);
+
+        information.append(maxGuests, numRooms, numBathrooms);
+
+        article.append(titleBox, information, Description);
+
+        placesSection.append(article);
+      });
+    })
+    .fail(function (error) {
+      console.log('Error:', error);
     });
-  })
-  .fail(function(error) {
-    console.log('Error:', error);
-  });
 }
 
-});
+);

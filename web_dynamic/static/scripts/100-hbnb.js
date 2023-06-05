@@ -82,4 +82,6 @@ function handleSuccessResponse (data) {
 
     placesSection.append(article);
   });
+
+	/*100hbnb*/
 }
