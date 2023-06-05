@@ -1,6 +1,6 @@
 $(document).ready(function () {
   const amenities = {};
-//  const amenityID = [];
+  //  const amenityID = [];
   // AMENITIES LISTING
   $('input[data-id]').click(function () {
     const dataId = $(this).attr('data-id');
@@ -14,11 +14,10 @@ $(document).ready(function () {
     const amenityList = [];
     $.each(amenities, function (dataid, dataname) {
       amenityList.push(dataname);
-
     });
-	
+
     $('div.amenities h4').text(amenityList.join(', '));
-	  return amenityList;
+
   });
 
   // API REQUESTING
@@ -43,13 +42,13 @@ $(document).ready(function () {
     });
   // on button click
   $('button').click(function () {
-	  amenityID = Object.keys(amenities);
+    const amenityID = Object.keys(amenities);
 
     $.ajax({
       url: 'http://0.0.0.0:5001/api/v1/places_search/',
       method: 'POST',
       contentType: 'application/json',
-      data: JSON.stringify({"amenities": amenityID})
+      data: JSON.stringify({ amenities: amenityID })
     })
       .done(handleSuccessResponse)
       .fail(function (error) {

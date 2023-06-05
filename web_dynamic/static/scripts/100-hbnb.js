@@ -1,8 +1,8 @@
 $(document).ready(function () {
   const amenities = {};
-//  const amenityID = [];
-  // AMENITIES LISTING
-  $('input[data-id]').click(function () {
+  //  const amenityID = [];
+	// AMENITIES LISTING
+	$('input[data-id]').click(function () {
     const dataId = $(this).attr('data-id');
     const dataName = $(this).attr('data-name');
 
@@ -14,11 +14,9 @@ $(document).ready(function () {
     const amenityList = [];
     $.each(amenities, function (dataid, dataname) {
       amenityList.push(dataname);
-
     });
-	
+
     $('div.amenities h4').text(amenityList.join(', '));
-	  return amenityList;
   });
 
   // API REQUESTING
@@ -43,20 +41,20 @@ $(document).ready(function () {
     });
   // on button click
   $('button').click(function () {
-	  amenityID = Object.keys(amenities);
+    const amenityID = Object.keys(amenities);
 
     $.ajax({
       url: 'http://0.0.0.0:5001/api/v1/places_search/',
       method: 'POST',
       contentType: 'application/json',
-      data: JSON.stringify({"amenities": amenityID})
+      data: JSON.stringify({ amenities: amenityID })
     })
       .done(handleSuccessResponse)
       .fail(function (error) {
         console.log('Error:', error);
       });
   });
-});
+
 
 // Function to handle the successful response and update the DOM
 function handleSuccessResponse (data) {
@@ -82,6 +80,46 @@ function handleSuccessResponse (data) {
 
     placesSection.append(article);
   });
+};
 
-	/*100hbnb*/
-}
+  /* 100hbnb */
+  const states = {};
+  //  const amenityID = [];
+  // AMENITIES LISTING
+  $('input[data-id="{{ state.id }}"]').click(function () {
+    const dataId = $(this).attr('data-id');
+    const dataName = $(this).attr('data-name');
+
+    if ($(this).prop('checked')) {
+      states[dataId] = dataName;
+    } else {
+      delete states[dataId];
+    }
+    const stateList = [];
+    $.each(states, function (dataid, dataname) {
+      stateList.push(dataname);
+    });
+
+    $('div.locations h4').text(stateList.join(', '));
+  });
+  /* Cities */
+  const cities = {};
+  //  const amenityID = [];
+  // AMENITIES LISTING
+  $('input[data-id="{{ city.id }}"]').click(function () {
+    const dataId = $(this).attr('data-id');
+    const dataName = $(this).attr('data-name');
+    console.log(' A city has beeen clicked');
+    if ($(this).prop('checked')) {
+      cities[dataId] = dataName;
+    } else {
+      delete cities[dataId];
+    }
+    const cityList = [];
+    $.each(cities, function (dataid, dataname) {
+      cityList.push(dataname);
+    });
+
+    $('div.locations h4').text(cityList.join(', '));
+  });
+});

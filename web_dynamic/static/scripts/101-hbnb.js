@@ -1,6 +1,6 @@
 $(document).ready(function () {
   const amenities = {};
-//  const amenityID = [];
+  //  const amenityID = [];
   // AMENITIES LISTING
   $('input[data-id]').click(function () {
     const dataId = $(this).attr('data-id');
@@ -14,9 +14,8 @@ $(document).ready(function () {
     const amenityList = [];
     $.each(amenities, function (dataid, dataname) {
       amenityList.push(dataname);
-
     });
-	
+
     $('div.amenities h4').text(amenityList.join(', '));
 	  return amenityList;
   });
@@ -49,7 +48,7 @@ $(document).ready(function () {
       url: 'http://0.0.0.0:5001/api/v1/places_search/',
       method: 'POST',
       contentType: 'application/json',
-      data: JSON.stringify({"amenities": amenityID})
+      data: JSON.stringify({ amenities: amenityID })
     })
       .done(handleSuccessResponse)
       .fail(function (error) {
@@ -83,5 +82,5 @@ function handleSuccessResponse (data) {
     placesSection.append(article);
   });
 
-	/*100hbnb*/
+  /* 100hbnb */
 }

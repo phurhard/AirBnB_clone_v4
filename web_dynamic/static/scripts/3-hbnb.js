@@ -42,14 +42,14 @@ $(document).ready(function () {
         const article = $('<article></article>');
         const titleBox = $('<div></div>').addClass('title_box');
         const title = $('<h2></h2>').text(place.name);
-        const price = $('<div class="price_by_night"></div>').text('$' +`${place.price_by_night}`);
+        const price = $('<div class="price_by_night"></div>').text('$' + `${place.price_by_night}`);
         const information = $('<div></div>').addClass('information');
         const maxGuests = $('<div class="max_guest">').text(`${place.max_guest}` + ' Guests');
         const numRooms = $('<div class="number_rooms">').text(`${place.number_rooms}` + ' Bedrooms');
         const numBathrooms = $('<div class="number_bathrooms">').text(`${place.number_bathrooms}` + ' Bathrooms');
 
-	const Description = $('<div class="description"></div>').text(`${place.description}`);
-	titleBox.append(title, price);
+        const Description = $('<div class="description"></div>').text(`${place.description}`);
+        titleBox.append(title, price);
 
         information.append(maxGuests, numRooms, numBathrooms);
 
