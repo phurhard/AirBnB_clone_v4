@@ -28,9 +28,9 @@ def cities_list():
     """ displays a HTML page with a list of cities by states """
     states = storage.all(State).values()
     states = sorted(states, key=lambda k: k.name)
-    st_ct = []
-    for state in states:
-        st_ct.append([state, sorted(state.cities, key=lambda k: k.name)])
+    st_ct = [
+        [state, sorted(state.cities, key=lambda k: k.name)] for state in states
+    ]
     return render_template('8-cities_by_states.html',
                            states=st_ct,
                            h_1="States")
